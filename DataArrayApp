@@ -1,0 +1,117 @@
+class Person
+{
+    private String firstName;
+    private String lastName;
+    private int age;
+    
+    public Person(String f, String l, int a)
+    {
+        firstName = f;
+        lastName = l;
+        age = a;
+    }
+    
+    public void displayPerson()
+    {
+        System.out.print("First name is "+firstName);
+        System.out.print(", last name is "+lastName);
+        System.out.println(",age is "+age);
+    }
+    
+    
+    public String getLast()
+    {
+        return lastName;
+    }
+    
+    
+}
+//...............................................................................................................................................................................
+class DataArray
+{
+    private Person[] arr;
+    private int nElem;
+    
+    public DataArray(int max)
+    {
+        arr = new Person[max];
+        nElem =0;
+    }
+    
+    public void insert(String f,String l,int a)
+    {
+        arr[nElem] = new Person(f,l,a);
+        nElem++;
+    }
+    
+    public Person find(String searchName)
+    {
+        int i;
+        for( i =0;i < nElem ;i++)
+        {
+            if(arr[i].getLast().equals(searchName))
+            {
+                break;
+            }
+        }
+        if(i == nElem)
+            return null;
+        else
+            return arr[i];
+    }
+    
+    public boolean delete(String name)
+    {
+        int i;
+        for(i = 0;i<nElem;i++)
+            if(arr[i].getLast().equals(name))
+                break;
+        if(i==nElem)
+            return false;
+        else 
+        {
+            for(int j =i;j<nElem;j++)
+                arr[j]=arr[j+1];
+            nElem--;
+            return true;
+        }
+        
+    }
+    
+    public void displayArr()
+    {
+        for(int i =0; i<nElem; i++)
+            arr[i].displayPerson();
+    }
+    
+    
+}
+//...............................................................................................................................................................................
+public class DataArrayApp 
+{
+    public static void main(String[] args) 
+    {
+        int max = 100;
+        DataArray ar = new DataArray(max);
+        
+        ar.insert("mohammed", "Ahmed", 40);
+        ar.insert("Sha3ban", "Ramdan", 30);
+        ar.insert("Sofyan", "Sayf", 45);
+        ar.displayArr();
+        String name = "Sayf";
+        Person found = ar.find(name);
+        if(found != null)
+        {
+            System.out.println("Found");
+            found.displayPerson();
+            System.out.println("--------------------------------------");
+        }
+        else
+            System.out.println("Can't find " + name);
+        
+        ar.delete("Ahmed");
+        ar.displayArr();
+        
+    }
+    
+}
